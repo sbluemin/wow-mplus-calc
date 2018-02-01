@@ -1,3 +1,5 @@
 from flask import Flask
 
-app = Flask(__name__)
+appServer = Flask(__name__)
+
+import app.views
