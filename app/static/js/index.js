@@ -1,6 +1,4 @@
-new Vue({
+var app = new Vue({
     el: '#app',
-    components: {
-
-    }
+    message: "Hi"
 });
