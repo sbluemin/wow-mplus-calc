@@ -37,7 +37,7 @@ def calc_damage(mplus_level, base_damage_value, is_tyrannical):
 def get_damage_table(named_tuple_object, is_tyrannical):
     dic = dict()
     for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL):
-        dic[i] = (i, calc_damage(i, named_tuple_object[0], is_tyrannical))
+        dic[i] = calc_damage(i, named_tuple_object[0], is_tyrannical)
     return dic
 
 @appServer.route('/')
