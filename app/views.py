@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import request, jsonify, make_response
 from app import appServer
 import math
 import json
@@ -20,31 +20,36 @@ import json
 용맹_하임달_뿔피리 = (901116, True, '')
 용맹_스코발드_지옥화염쇄도 = (1340000, False, '')
 
+CALC_MIN_LEVEL = 15
+CALC_MAX_LEVEL = 31
+
 # 쐐기 단수에 따라 데미지를 계산한다.
 # 단수 스케일링 수치 공식 = (1.1^(단수-1))-1)*100 -> 올림
 # 폭군은 위 공식에서 1.15를 곱한다. (폭군은 15% 스케일링을 더받으므로)
 def calc_damage(mplus_level, base_damage_value, is_tyrannical):
     scale_value_percentage = ((math.ceil(((math.pow(1.1, mplus_level - 1)) - 1) * 100)) / 100)
     result_damage_value = base_damage_value * scale_value_percentage
-
     # 폭군일 경우 15% 를 곱한다.
     if is_tyrannical == True:
         result_damage_value = result_damage_value * 1.15
-
     return math.ceil(result_damage_value)
 
-def get_damage_table(named_name):
-    if named_name == '영혼의융합체':
-        
-    return 0
-
+def get_damage_table(named_tuple_object, is_tyrannical):
+    dic = dict()
+    for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL):
+        dic[i] = (i, calc_damage(i, named_tuple_object[0], is_tyrannical))
+    return dic
 
 @appServer.route('/')
 def index():
-    print('경화: ' + str(calc_damage(20, 901116, False)))
-    print('폭군: ' + str(calc_damage(20, 901116, True)))
     return appServer.send_static_file('index.html')
 
-@appServer.route('/api/test')
-def test():
-    return 0
+@appServer.route('/api/damage_table', methods=['POST'])
+def damage_table():
+    request_json = request.get_json()
+    named = request_json.get('named')
+    is_tyrannical = request_json.get('is_tyrannical')
+    result = dict()
+    if named == '융합체':
+        result = get_damage_table(검떼_영혼의융합체_영혼대폭발, is_tyrannical)
+    return json.dumps(result);
