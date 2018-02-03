@@ -23,6 +23,16 @@ import json
 CALC_MIN_LEVEL = 15
 CALC_MAX_LEVEL = 31
 
+named_map = {
+    '융합체': 검떼_영혼의융합체_영혼대폭발,
+    '원한강타': 검떼_혐오스러운원한강타_지축붕괴발구르기,
+    '로크모라': 넬타_로크모라_산산조각,
+    '자칼': 비전로_자칼_사악한격돌,
+    '증오갈퀴여군주': 아즈_증오갈퀴여군주_집중된번개,
+    '하임달': 용맹_하임달_뿔피리,
+    '스코발드': 용맹_스코발드_지옥화염쇄도
+}
+
 # 쐐기 단수에 따라 데미지를 계산한다.
 # 단수 스케일링 수치 공식 = (1.1^(단수-1))-1)*100 -> 올림
 # 폭군은 위 공식에서 1.15를 곱한다. (폭군은 15% 스케일링을 더받으므로)
@@ -49,7 +59,7 @@ def damage_table():
     request_json = request.get_json()
     named = request_json.get('named')
     is_tyrannical = request_json.get('is_tyrannical')
-    result = dict()
-    if named == '융합체':
-        result = get_damage_table(검떼_영혼의융합체_영혼대폭발, is_tyrannical)
+    # 네임드 튜플 객체를 가져옴
+    named_tuple = named_map[named]
+    result = get_damage_table(named_tuple, is_tyrannical)
     return json.dumps(result);

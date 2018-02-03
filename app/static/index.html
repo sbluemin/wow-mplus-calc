@@ -1,8 +1,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
@@ -15,16 +15,66 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="static/css/sidebar.css">
 </head>
 
 <body>
-    <div id="app">
-        {{ message }}
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                                Start Bootstrap
+                            </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Shortcuts</a>
+                </li>
+                <li>
+                    <a href="#">Overview</a>
+                </li>
+                <li>
+                    <a href="#">Events</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- 데미지 테이블 레이아웃 -->
+        <div id="damage_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th v-for="item in headItems">
+                            {{ item.label }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in bodyItems">
+                        <th>{{ item.level }}</th>
+                        <td>{{ item.damage }}</td>
+                    </tr>
+            </table>
+        </div>
     </div>
 
     <script src="static/js/index.js"></script>
-
-    <button type="button" class="btn btn-primary" onclick="aaa();">Primary</button>
 </body>
 
 </html>
