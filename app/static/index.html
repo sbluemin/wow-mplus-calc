@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Mythic+ Damage Table</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -27,29 +27,29 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                                Start Bootstrap
-                            </a>
+                        MPLUS DAMAGE TABLE
+                    </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="#" v-on:click="a">영혼의 융합체: 영혼 대폭발</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="#" v-on:click="b">혐오스러운 원한강타: 지축붕괴 발구르기</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="#" v-on:click="c">로크모라: 산산조각</a>
                 </li>
                 <li>
-                    <a href="#">Events</a>
+                    <a href="#" v-on:click="d">자칼:사악한 격돌</a>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                    <a href="#" v-on:click="e">증오갈퀴 여군주: 집중된 번개</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="#" v-on:click="f">하임달: 뿔피리</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="#" v-on:click="g">스코발드: 지옥화염쇄도</a>
                 </li>
             </ul>
         </div>
@@ -57,7 +57,7 @@
 
         <!-- 데미지 테이블 레이아웃 -->
         <div id="damage_table">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th v-for="item in headItems">
@@ -70,8 +70,14 @@
                         <th>{{ item.level }}</th>
                         <td>{{ item.damage }}</td>
                     </tr>
+                </tbody>
             </table>
         </div>
+        <!-- /데미지 테이블 레이아웃 -->
+
+        <center>
+            <h3 class="text-muted">Made by. 쐐차앙-아즈샤라</h3>
+        </center>
     </div>
 
     <script src="static/js/index.js"></script>
