@@ -8,7 +8,9 @@ function createDamageJsonMessage(named, is_tyrannical) {
 }
 
 // api/damage_table 을 요청하고 성공 시, 데미지 테이블에 업데이트 시킨다.
-function requestPostDamageTableAndUpdateDamageTable(jsonString) {
+function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
+    var jsonString = createDamageJsonMessage(named, false);
+
     $.ajax({
         type: "POST",
         url: 'api/damage_table',
@@ -21,8 +23,14 @@ function requestPostDamageTableAndUpdateDamageTable(jsonString) {
 
             var jsonObject = JSON.parse(data);
             for (var key in jsonObject) {
-                damageTable.bodyItems.push({ level: key, damage: numberWithCommas(jsonObject[key]) });
+                damageTable.bodyItems.push({
+                    level: key,
+                    oneDamage: numberWithCommas(jsonObject[key][0]),
+                    twoDamage: numberWithCommas(jsonObject[key][1])
+                });
             }
+
+            damageTable.named = headerViewString;
         }
     });
 }
@@ -37,31 +45,31 @@ var sideBar = new Vue({
     methods: {
         // 영혼 융합체: 영혼 대폭발
         a: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("융합체", false));
+            requestPostDamageTableAndUpdateDamageTable("융합체", "영혼의 융합체- 영혼 대폭발");
         },
         // 혐오스러운 원한강타: 지축붕괴 발구르기
         b: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("원한강타", false));
+            requestPostDamageTableAndUpdateDamageTable("원한강타", "혐오스러운 원한강타 - 지축붕괴 발구르기");
         },
         // 로크모라: 산산조각
         c: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("로크모라", false));
+            requestPostDamageTableAndUpdateDamageTable("로크모라", "로크모라 - 산산조각");
         },
         // 자칼:사악한 격돌
         d: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("자칼", false));
+            requestPostDamageTableAndUpdateDamageTable("자칼", "자칼 - 사악한 격돌");
         },
         // 증오갈퀴 여군주: 집중된 번개
         e: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("증오갈퀴여군주", false));
+            requestPostDamageTableAndUpdateDamageTable("증오갈퀴여군주", "증오갈퀴 여군주 - 집중된 번개");
         },
         // 하임달: 뿔피리
         f: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("하임달", false));
+            requestPostDamageTableAndUpdateDamageTable("하임달", "하임달 - 뿔피리");
         },
         // 스코발드: 지옥화염쇄도
         g: function(event) {
-            requestPostDamageTableAndUpdateDamageTable(createDamageJsonMessage("스코발드", false));
+            requestPostDamageTableAndUpdateDamageTable("스코발드", "스코발드 - 지옥화염쇄도");
         },
     }
 });
@@ -69,9 +77,11 @@ var sideBar = new Vue({
 var damageTable = new Vue({
     el: '#damage_table',
     data: {
+        named: "Welcome!",
         headItems: [
             { label: '레벨' },
-            { label: '데미지' }
+            { label: '경화 데미지' },
+            { label: '폭군 데미지' }
         ],
         bodyItems: []
     }

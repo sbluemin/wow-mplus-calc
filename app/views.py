@@ -44,10 +44,11 @@ def calc_damage(mplus_level, base_damage_value, is_tyrannical):
         result_damage_value = result_damage_value * 1.15
     return math.ceil(result_damage_value)
 
-def get_damage_table(named_tuple_object, is_tyrannical):
+def get_damage_table(named_tuple_object):
     dic = dict()
     for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL):
-        dic[i] = calc_damage(i, named_tuple_object[0], is_tyrannical)
+        tupleObject = (calc_damage(i, named_tuple_object[0], False), calc_damage(i, named_tuple_object[0], True))
+        dic[i] = tupleObject
     return dic
 
 @appServer.route('/')
@@ -58,8 +59,11 @@ def index():
 def damage_table():
     request_json = request.get_json()
     named = request_json.get('named')
+    
+    # 현재 안쓰임
     is_tyrannical = request_json.get('is_tyrannical')
+
     # 네임드 튜플 객체를 가져옴
     named_tuple = named_map[named]
-    result = get_damage_table(named_tuple, is_tyrannical)
+    result = get_damage_table(named_tuple)
     return json.dumps(result);
