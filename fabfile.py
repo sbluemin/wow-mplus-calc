@@ -78,5 +78,7 @@ def _get_latest_source():
 
 # Package Manager인 pipenv 설치
 def _setup_pipenv():
-    run('cd %s && pipenv install' % (PROJECT_DIR))
+    # 프로젝트 폴더에 .venv 생성을 위해 환경변수 설정
+    run('PIPENV_VENV_IN_PROJECT="1"')
+    run('cd %s && pipenv shell pipenv install' % (PROJECT_DIR))
     
