@@ -33,7 +33,8 @@ APT_REQUIREMENTS = [
     'curl',
     'git',
     'python3-pip',
-    'nginx'
+    'nginx',
+    'uwsgi-plugin-python'
 ]
 
 PIP_REQUIREMENTS = [
@@ -41,9 +42,13 @@ PIP_REQUIREMENTS = [
     'uwsgi'
 ]
 
-def deploy():
+# 최초 배포시
+def initial():
     _install_apt_requirements(APT_REQUIREMENTS)
     _install_pip_requirements(PIP_REQUIREMENTS)
+
+# 상시 배포시
+def deploy():
     _get_latest_source()
     _setup_pipenv()
 
