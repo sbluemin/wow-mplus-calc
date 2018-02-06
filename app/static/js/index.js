@@ -9,6 +9,9 @@ function createDamageJsonMessage(named, is_tyrannical) {
 
 // api/damage_table 을 요청하고 성공 시, 데미지 테이블에 업데이트 시킨다.
 function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
+    // 테이블 데이터 초기화
+    damageTable.bodyItems = [];
+
     var jsonString = createDamageJsonMessage(named, false);
 
     $.ajax({
@@ -18,9 +21,6 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
         contentType: "application/json",
 
         success: function(data) {
-            // 테이블 데이터 초기화
-            damageTable.bodyItems = [];
-
             var jsonObject = JSON.parse(data);
             for (var key in jsonObject) {
                 damageTable.bodyItems.push({

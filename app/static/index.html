@@ -61,22 +61,24 @@
                 <h1> {{ named }} </h1>
             </center>
 
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th v-for="item in headItems">
-                            {{ item.label }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in bodyItems">
-                        <th>{{ item.level }}</th>
-                        <td>{{ item.oneDamage }}</td>
-                        <td>{{ item.twoDamage }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <transition appear name="slide-fade">
+                <table class="table table-striped" v-if="bodyItems.length > 0">
+                    <thead>
+                        <tr>
+                            <th v-for="item in headItems">
+                                {{ item.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in bodyItems">
+                            <th>{{ item.level }}</th>
+                            <td>{{ item.oneDamage }}</td>
+                            <td>{{ item.twoDamage }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </transition>
         </div>
         <!-- /데미지 테이블 레이아웃 -->
 
