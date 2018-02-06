@@ -46,11 +46,12 @@ PIP_REQUIREMENTS = [
 def initial():
     _install_apt_requirements(APT_REQUIREMENTS)
     _install_pip_requirements(PIP_REQUIREMENTS)
+    _setup_pipenv()
 
 # 상시 배포시
 def deploy():
     _get_latest_source()
-    _setup_pipenv()
+    _restart_uwsgi()
 
 # 필요한 apt 패키지를 설치합니다.
 def _install_apt_requirements(APT_REQUIREMENTS):
@@ -82,3 +83,7 @@ def _setup_pipenv():
     run('PIPENV_VENV_IN_PROJECT="1"')
     run('cd %s && pipenv shell pipenv install' % (PROJECT_DIR))
     
+# uwsgi 재시작
+def _restart_uwsgi():
+    sudo('killall -9 uwsgi')
+    sudo('cd %s && uwsgi -i wsgi.ini' % (PROJECT_DIR)) 
