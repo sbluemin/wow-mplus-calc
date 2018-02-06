@@ -20,8 +20,9 @@ import json
 용맹_하임달_뿔피리 = (901116, True, '')
 용맹_스코발드_지옥화염쇄도 = (1340000, False, '')
 
+# 계산할 테이블 범위
 CALC_MIN_LEVEL = 15
-CALC_MAX_LEVEL = 31
+CALC_MAX_LEVEL = 30
 
 named_map = {
     '융합체': 검떼_영혼의융합체_영혼대폭발,
@@ -46,7 +47,7 @@ def calc_damage(mplus_level, base_damage_value, is_tyrannical):
 
 def get_damage_table(named_tuple_object):
     dic = dict()
-    for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL):
+    for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL + 1):
         tupleObject = (calc_damage(i, named_tuple_object[0], False), calc_damage(i, named_tuple_object[0], True))
         dic[i] = tupleObject
     return dic
