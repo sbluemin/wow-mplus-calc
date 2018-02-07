@@ -22,11 +22,15 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
 
         success: function(data) {
             var jsonObject = JSON.parse(data);
-            for (var key in jsonObject) {
+
+            damageTable.comment = jsonObject['comment'];
+            damageTable.joke = jsonObject['joke'];
+
+            for (var value in jsonObject.damage) {
                 damageTable.bodyItems.push({
-                    level: key,
-                    oneDamage: numberWithCommas(jsonObject[key][0]),
-                    twoDamage: numberWithCommas(jsonObject[key][1])
+                    level: value[0],
+                    oneDamage: numberWithCommas(value[1]),
+                    twoDamage: numberWithCommas(value[2])
                 });
             }
 
