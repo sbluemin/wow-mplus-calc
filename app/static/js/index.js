@@ -67,7 +67,7 @@ var sideBar = new Vue({
     methods: {
         // 영혼 융합체: 영혼 대폭발
         a: function(event) {
-            requestPostDamageTableAndUpdateDamageTable("융합체", "영혼의 융합체- 영혼 대폭발");
+            requestPostDamageTableAndUpdateDamageTable("융합체", "영혼의 융합체 - 영혼 대폭발");
         },
         // 혐오스러운 원한강타: 지축붕괴 발구르기
         b: function(event) {
@@ -85,12 +85,24 @@ var sideBar = new Vue({
         e: function(event) {
             requestPostDamageTableAndUpdateDamageTable("증오갈퀴여군주", "증오갈퀴 여군주 - 집중된 번개");
         },
-        // 하임달: 뿔피리
+        // 나무심장: 부서진 대지
         f: function(event) {
+            requestPostDamageTableAndUpdateDamageTable("나무심장", "나무심장 - 부서진 대지");
+        },
+        // 자비우스: 악몽화살
+        g: function(event) {
+            requestPostDamageTableAndUpdateDamageTable("자비우스_악몽화살", "자비우스의 망령 - 악몽화살");
+        },
+        // 자비우스: 대재앙의 악몽
+        h: function(event) {
+            requestPostDamageTableAndUpdateDamageTable("자비우스_대재앙", "자비우스의 망령 - 대재앙의 악몽");
+        },
+        // 하임달: 뿔피리
+        i: function(event) {
             requestPostDamageTableAndUpdateDamageTable("하임달", "하임달 - 뿔피리");
         },
         // 스코발드: 지옥화염쇄도
-        g: function(event) {
+        j: function(event) {
             requestPostDamageTableAndUpdateDamageTable("스코발드", "스코발드 - 지옥화염쇄도");
         },
     }
