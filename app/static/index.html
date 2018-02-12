@@ -59,10 +59,11 @@
         <div id="damage_table">
             <center>
                 <h1> {{ named }} </h1>
-            </center>
 
-            <p>{{ comment }}</p><br>
-            <p>{{ joke }}</p>
+                <h2 class="text-danger">{{ isPhysical }}</h2>
+                <p>{{ comment }}</p>
+                <p>{{ joke }}</p>
+            </center>
 
             <transition appear name="slide-fade">
                 <table class="table table-striped" v-if="bodyItems.length > 0">

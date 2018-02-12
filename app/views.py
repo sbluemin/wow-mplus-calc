@@ -5,7 +5,7 @@ import json
 
 # 기본 데미지, 물리 피해 타입 여부, 설명, 조크
 검떼_영혼의융합체_영혼대폭발 = (1570000, False, '영혼 중첩 여부가 계산되지 않은 수치입니다.', '')
-검떼_혐오스러운원한강타_지축붕괴발구르기 = (841026, True, '')
+검떼_혐오스러운원한강타_지축붕괴발구르기 = (841026, True, '', '')
 
 넬타_로크모라_산산조각 = (589128, True, '땅거미가 계산되지 않은 수치입니다.', '')
 
@@ -23,6 +23,11 @@ import json
 # 계산할 테이블 범위
 CALC_MIN_LEVEL = 15
 CALC_MAX_LEVEL = 30
+
+NAMED_TUPPLE_BASE_DMG_IDX = 0
+NAMED_TUPLE_IS_PHYSCIAL_IDX = 1
+NAMED_TUPLE_COMMENT_IDX = 2
+NAMED_TUPLE_JOKE_IDX = 3
 
 named_map = {
     '융합체': 검떼_영혼의융합체_영혼대폭발,
@@ -47,12 +52,14 @@ def calc_damage(mplus_level, base_damage_value, is_tyrannical):
 
 def get_damage_table(named_tuple_object):
     dic = dict()
-    dic['comment'] = named_tuple_object[2]
-    dic['joke'] = named_tuple_object[3]
-    dic['physical'] = named_tuple_object[1]
+    dic['comment'] = named_tuple_object[NAMED_TUPLE_COMMENT_IDX]
+    dic['joke'] = named_tuple_object[NAMED_TUPLE_JOKE_IDX]
+    dic['physical'] = named_tuple_object[NAMED_TUPLE_IS_PHYSCIAL_IDX]
     dic['damage'] = list()
     for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL + 1):
-        dic['damage'].insert(i - CALC_MIN_LEVEL, (i, calc_damage(i, named_tuple_object[0], False), calc_damage(i, named_tuple_object[0], True)))
+        dic['damage'].insert(i - CALC_MIN_LEVEL, (i, 
+         calc_damage(i, named_tuple_object[NAMED_TUPPLE_BASE_DMG_IDX], False),
+         calc_damage(i, named_tuple_object[NAMED_TUPPLE_BASE_DMG_IDX], True)))
     return dic
 
 @appServer.route('/')
@@ -63,9 +70,6 @@ def index():
 def damage_table():
     request_json = request.get_json()
     named = request_json.get('named')
-    
-    # 현재 안쓰임
-    is_tyrannical = request_json.get('is_tyrannical')
 
     # 네임드 튜플 객체를 가져옴
     named_tuple = named_map[named]

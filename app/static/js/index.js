@@ -21,16 +21,34 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
         contentType: "application/json",
 
         success: function(data) {
-            var jsonObject = JSON.parse(data);
+            jsonObject = data;
+            //var jsonObject = JSON.parse(data);
 
             damageTable.comment = jsonObject['comment'];
             damageTable.joke = jsonObject['joke'];
 
-            for (var value in jsonObject.damage) {
+            if (jsonObject['physical'] == true) {
+                damageTable.isPhysical = "물리 데미지 입니다."
+            } else {
+                damageTable.isPhysical = "마법 데미지 입니다."
+            }
+
+            /*
+            for (var [level, oneDmg, TwoDmg] in jsonObject.damage) {
                 damageTable.bodyItems.push({
-                    level: value[0],
-                    oneDamage: numberWithCommas(value[1]),
-                    twoDamage: numberWithCommas(value[2])
+                    level: level,
+                    oneDamage: numberWithCommas(oneDmg),
+                    twoDamage: numberWithCommas(TwoDmg)
+                });
+            }
+            */
+
+            for (var i = 0; i < jsonObject.damage.length; i++) {
+                var damage = jsonObject.damage[i];
+                damageTable.bodyItems.push({
+                    level: damage[0],
+                    oneDamage: numberWithCommas(damage[1]),
+                    twoDamage: numberWithCommas(damage[2])
                 });
             }
 
@@ -82,6 +100,9 @@ var damageTable = new Vue({
     el: '#damage_table',
     data: {
         named: "Welcome!",
+        comment: "",
+        joke: "",
+        isPhysical: "",
         headItems: [
             { label: '레벨' },
             { label: '경화 데미지' },
