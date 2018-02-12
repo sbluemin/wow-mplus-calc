@@ -28,9 +28,9 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
             damageTable.joke = jsonObject['joke'];
 
             if (jsonObject['physical'] == true) {
-                damageTable.isPhysical = "물리 데미지 입니다."
+                damageTable.isPhysical = "물리 데미지"
             } else {
-                damageTable.isPhysical = "마법 데미지 입니다."
+                damageTable.isPhysical = "마법 데미지"
             }
 
             /*
