@@ -85,4 +85,6 @@ def _setup_pipenv():
     
 # uwsgi 재시작
 def _restart_uwsgi():
-    sudo('killall -9 uwsgi; cd %s && uwsgi -i wsgi.ini' % (PROJECT_DIR)) 
+    sudo('cd %s && rm -rf wsgi.log' % (PROJECT_DIR))
+    sudo('killall -9 uwsgi')
+    run('cd %s && uwsgi -i wsgi.ini' % (PROJECT_DIR))
