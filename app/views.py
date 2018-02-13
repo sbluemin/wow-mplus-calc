@@ -62,7 +62,9 @@ def get_damage_table(named_tuple_object):
     for i in range(CALC_MIN_LEVEL, CALC_MAX_LEVEL + 1):
         dic['damage'].insert(i - CALC_MIN_LEVEL, (i, 
          calc_damage(i, named_tuple_object[NAMED_TUPPLE_BASE_DMG_IDX], False),
-         calc_damage(i, named_tuple_object[NAMED_TUPPLE_BASE_DMG_IDX], True)))
+         calc_damage(i, named_tuple_object[NAMED_TUPPLE_BASE_DMG_IDX], True),
+         'Soon',
+         'Soon'))
     return dic
 
 @appServer.route('/')

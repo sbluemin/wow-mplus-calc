@@ -48,7 +48,9 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
                 damageTable.bodyItems.push({
                     level: damage[0],
                     oneDamage: numberWithCommas(damage[1]),
-                    twoDamage: numberWithCommas(damage[2])
+                    twoDamage: numberWithCommas(damage[2]),
+                    safety: damage[3],
+                    prydazSafety: damage[4]
                 });
             }
 
@@ -118,7 +120,9 @@ var damageTable = new Vue({
         headItems: [
             { label: '레벨' },
             { label: '경화 데미지' },
-            { label: '폭군 데미지' }
+            { label: '폭군 데미지' },
+            { label: '위험도' },
+            { label: '프라다' }
         ],
         bodyItems: []
     }
