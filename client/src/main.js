@@ -1,4 +1,8 @@
-//import Vue from 'vue'
+"use strict";
+
+import Vue from 'vue';
+
+require('./sidebar.css');
 
 function createDamageJsonMessage(named, is_tyrannical) {
     var data = new Object();
@@ -21,7 +25,7 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
         contentType: "application/json",
 
         success: function(data) {
-            jsonObject = data;
+            var jsonObject = data;
             //var jsonObject = JSON.parse(data);
 
             damageTable.comment = jsonObject['comment'];

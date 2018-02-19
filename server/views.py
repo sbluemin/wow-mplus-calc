@@ -1,7 +1,8 @@
-from flask import request, jsonify, Response
-from app import appServer
+from flask import request, jsonify, Response, send_from_directory
+from server import app
 import math
 import json
+import os
 
 # 기본 데미지, 물리 피해 타입 여부, 설명, 조크
 검떼_영혼의융합체_영혼대폭발 = (1570000, False, '영혼 중첩 여부가 계산되지 않은 수치입니다.', '')
@@ -67,11 +68,12 @@ def get_damage_table(named_tuple_object):
          'Soon'))
     return dic
 
-@appServer.route('/')
-def index():
-    return appServer.send_static_file('index.html')
 
-@appServer.route('/api/damage_table', methods=['POST'])
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+@app.route('/api/damage_table', methods=['POST'])
 def damage_table():
     request_json = request.get_json()
     named = request_json.get('named')

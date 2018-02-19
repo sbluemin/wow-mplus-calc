@@ -27,6 +27,7 @@ env.hosts = [
 
 # 원격 서버중 어디에 프로젝트를 저장할지 지정해준 뒤,
 PROJECT_DIR = '/home/{}/{}'.format(env.user, PROJECT_NAME)
+CLIENT_DIR = os.path.join(PROJECT_DIR, 'client')
 
 # 우리 프로젝트에 필요한 apt 패키지들을 적어줍니다.
 APT_REQUIREMENTS = [
@@ -51,6 +52,7 @@ def initial():
 # 상시 배포시
 def deploy():
     _get_latest_source()
+    _install_latest_npm()
     _restart_uwsgi()
 
 # 필요한 apt 패키지를 설치합니다.
@@ -83,6 +85,11 @@ def _setup_pipenv():
     run('PIPENV_VENV_IN_PROJECT="1"')
     run('cd %s && pipenv shell pipenv install' % (PROJECT_DIR))
     
+# 클라이언트 빌드
+def _install_latest_npm():
+    run('cd %s && npm install' % (CLIENT_DIR))
+    run('cd %s && npm run build' % (CLIENT_DIR))
+
 # uwsgi 재시작
 def _restart_uwsgi():
     sudo('cd %s && rm -rf wsgi.log' % (PROJECT_DIR))
