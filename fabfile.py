@@ -27,7 +27,7 @@ env.hosts = [
 
 # 원격 서버중 어디에 프로젝트를 저장할지 지정해준 뒤,
 PROJECT_DIR = '/home/{}/{}'.format(env.user, PROJECT_NAME)
-CLIENT_DIR = os.path.join(PROJECT_DIR, 'client')
+CLIENT_DIR = '{}/{}'.format(PROJECT_DIR, 'client')
 
 # 우리 프로젝트에 필요한 apt 패키지들을 적어줍니다.
 APT_REQUIREMENTS = [
