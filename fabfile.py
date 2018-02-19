@@ -35,7 +35,8 @@ APT_REQUIREMENTS = [
     'git',
     'python3-pip',
     'nginx',
-    'uwsgi-plugin-python'
+    'uwsgi-plugin-python',
+    'npm'
 ]
 
 PIP_REQUIREMENTS = [
