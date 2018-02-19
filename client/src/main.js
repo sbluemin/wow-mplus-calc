@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 
-//require('./sidebar.css');
+require('./sidebar.css');
 
 function createDamageJsonMessage(named, is_tyrannical) {
     var data = new Object();
