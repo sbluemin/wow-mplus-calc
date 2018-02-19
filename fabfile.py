@@ -1,5 +1,6 @@
 from fabric.contrib.files import append, exists, sed, put
 from fabric.api import env, local, run, sudo
+from fabric.context_managers import cd
 import os
 import json
 
@@ -46,6 +47,7 @@ PIP_REQUIREMENTS = [
 
 # 최초 배포시
 def initial():
+    _up_to_date_nodejs_8_x__apt()
     _install_apt_requirements(APT_REQUIREMENTS)
     _install_pip_requirements(PIP_REQUIREMENTS)
     _setup_pipenv()
@@ -55,6 +57,9 @@ def deploy():
     _get_latest_source()
     _install_latest_npm()
     _restart_uwsgi()
+
+def _up_to_date_nodejs_8_x__apt():
+    run('curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -')
 
 # 필요한 apt 패키지를 설치합니다.
 def _install_apt_requirements(APT_REQUIREMENTS):
@@ -88,7 +93,7 @@ def _setup_pipenv():
     
 # 클라이언트 빌드
 def _install_latest_npm():
-    # run('cd %s && npm install' % (CLIENT_DIR))
+    run('cd %s && npm install' % (CLIENT_DIR))
     run('cd %s && npm run build' % (CLIENT_DIR))
 
 # uwsgi 재시작
