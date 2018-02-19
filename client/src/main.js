@@ -25,7 +25,7 @@ function requestPostDamageTableAndUpdateDamageTable(named, headerViewString) {
         contentType: "application/json",
 
         success: function(data) {
-            jsonObject = data;
+            var jsonObject = data;
             //var jsonObject = JSON.parse(data);
 
             damageTable.comment = jsonObject['comment'];
