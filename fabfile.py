@@ -88,7 +88,7 @@ def _setup_pipenv():
     
 # 클라이언트 빌드
 def _install_latest_npm():
-    run('cd %s && npm install' % (CLIENT_DIR))
+    # run('cd %s && npm install' % (CLIENT_DIR))
     run('cd %s && npm run build' % (CLIENT_DIR))
 
 # uwsgi 재시작
